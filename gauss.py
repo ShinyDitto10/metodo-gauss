@@ -85,6 +85,35 @@ def get_inf_solutions(mat: Matrix) -> Parametric:
     return solution
 
 
+def format_inf_solutions(sol: Parametric) -> str:
+    formatted_sol: str = "x = "
+    if sol.x1 != 0:
+        formatted_sol += str(sol.x1) + " "
+    if sol.x2 == 1:
+        formatted_sol += "+ \u03BB"
+    elif sol.x2 == -1:
+        formatted_sol += "- \u03BB"
+    elif sol.x2 > 0:
+        formatted_sol += "+ " + str(sol.x2) + " * \u03BB"
+    else:
+        formatted_sol += "- " + str(-sol.x2) + " * \u03BB"
+    
+    formatted_sol += ", y = "
+    if sol.y1 != 0:
+        formatted_sol += str(sol.y1) + " "
+    if sol.y2 == 1:
+        formatted_sol += "+ \u03BB"
+    elif sol.y2 == -1:
+        formatted_sol += "- \u03BB"
+    elif sol.y2 > 0:
+        formatted_sol += "+ " + str(sol.y2) + " * \u03BB"
+    else:
+        formatted_sol += "- " + str(-sol.y2) + " * \u03BB"
+    
+    formatted_sol += ", z = \u03BB"
+    return formatted_sol
+
+
 def print_solutions(mat: Matrix):
     if not has_solution(mat):
         print("El sistema no tiene solución")
@@ -95,7 +124,7 @@ def print_solutions(mat: Matrix):
     else:
         sol = get_inf_solutions(mat)
         print("El sistema tiene infinitas soluciones:")
-        print("x = ", sol.x1, " + ", sol.x2, " * \u03BB, y = ", sol.y1, " + ", sol.y2, " * \u03BB, z = \u03BB")
+        print(format_inf_solutions(sol))
 
 
 def main():
